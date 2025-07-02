@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Player Playlist{% endblock %}
+
+{% block header %}Player Playlist{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Playlist for {{ player.name }}</h2>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Description</h5>
+            <p class="card-text">{{ player.description }}</p>
+            <h5 class="card-title">Player serial</h5>
+            <p class="card-text">{{ player.serial }}</p>
+        </div>
+    </div>
+
+    <ul class="list-group mb-4">
+        {% for data in media %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ data.url }}</span>
+                <form action="{{ url_for('management.remove_media_from_player', player_id=player.id, media_id=data.id) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="mb-4">
+        <h4>Player Settings</h4>
+        <p><strong>On Time:</strong> {{ player.on_time }}</p>
+        <p><strong>Off Time:</strong> {{ player.off_time }}</p>
+        <p><strong>Switch tab interval:</strong> {{ player.switch_tab_interval }}</p>
+    </div>
+
+    <h3>Add new media</h3>
+    <form action="{{ url_for('management.add_media_to_player', player_id=player.id) }}" method="post" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="media_url" class="form-control" placeholder="Enter media URL" required>
+            <button type="submit" class="btn btn-primary">Add Media</button>
+        </div>
+    </form>
+    <h3>Change settings</h3>
+    <form action="{{ url_for('management.update_player_settings', player_id=player.id) }}" method="post" class="mb-4">
+        <div class="form-group row mb-3">
+            <div class="col-md-6">
+                <div class="input-group date timepicker" data-date-format="HH:mm" data-date-useseconds="false" data-date-pickDate="false">
+                    <input type="text" name="on_time" class="form-control form-control-sm" placeholder="On-Time" />
+                    <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-md-6">
+                <div class="input-group date timepicker" data-date-format="HH:mm" data-date-useseconds="false" data-date-pickDate="false">
+                    <input type="text" name="off_time" class="form-control form-control-sm" placeholder="Off-Time" />
+                    <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-md-6">
+                <label for="switch_tab_interval">Switch Tab Interval (seconds)</label>
+                <input type="number" name="switch_tab_interval" class="form-control form-control-sm" placeholder="Enter interval in seconds" />
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Update Settings</button>
+            </div>
+        </div>
+    </form>    
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Player Management{% endblock %}
+
+{% block header %}Player Management{% endblock %}
+
+{% block content %}
+<h2>Registered Players</h2>
+<ul>
+    {% for player in players %}
+        <li>
+            <strong>Name:</strong> {{ player.name }}
+            <form action="{{ url_for('management.delete_player', player_id=player.id) }}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this player?');">Delete Player</button>
+            </form>
+            <br>
+            <strong>Last Poll Time:</strong> {{ player.last_ping }}<br>
+            <a href="{{ url_for('management.player_playlist', player_id=player.id) }}">View Playlist</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
