@@ -1,3 +1,28 @@
-.venv/
 __pycache__/
-DS_Store 
+*.py[cod]
+*$py.class
+.ruff_cache
+
+# Virtual environments
+.venv/
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+*.cover
+*.py,cover
+coverage.xml
+.cache
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
