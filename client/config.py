@@ -1,4 +1,0 @@
-PLAYER_NAME = "Player"
-DESCRIPTION = "test deployment player"
-POLL_INTERVAL = 60
-REGISTRATION_RETRY_INTERVAL = 20

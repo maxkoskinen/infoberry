@@ -1,0 +1,85 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "info-berry"
+version = "v0.1.0"
+description = "Turn Raspberry Pis into simple digital signage."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Max Koskinen" }]
+requires-python = ">=3.9"
+
+dependencies = [
+    "playwright",
+    "pyyaml"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "ruff",
+]
+
+[project.scripts]
+info-berry-client = "info_berry.client.main:main"
+
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--tb=short",
+]
+markers = [
+    "asyncio: mark test as async",
+    "slow: mark test as slow running",
+    "integration: mark test as integration test",
+]
+filterwarnings = [
+    "ignore::RuntimeWarning:unittest.mock",
+    "ignore::pytest.PytestUnraisableExceptionWarning",
+]
+
+[tool.coverage.run]
+source = ["info_berry"]
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/site-packages/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = [
+    "build",
+    "dist",
+    ".venv",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]   # Enable rule codes
+ignore = ["E501"]          # Ignore specific rules
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

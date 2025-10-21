@@ -1,0 +1,37 @@
+content:
+  - type: url
+    source: https://example.com
+    duration: 5  # optional, override rotation_interval
+  - type: url
+    source: https://google.com
+    duration: 5  # optional, override rotation_interval
+  
+#  - type: url
+#    source: https://weather.example.com
+#  
+#  - type: html
+#    source: /home/user/dashboards/custom.html
+#    duration: 15
+#  
+#  - type: image
+#    source: /home/user/images/dashboard.png
+#    duration: 8
+#  
+#  - type: video
+#    source: /home/user/videos/promo.mp4
+#    duration: 30
+
+
+display:
+  screen: ":0"
+  width: 1920
+  height: 1080
+  rotation: null  # or "left", "right", "inverted"
+
+behavior:
+  rotation_interval: 5  # seconds between URL rotations
+  refresh_interval: 3600  # refresh current page every hour
+  
+#logging:
+#  level: INFO
+#  file: /var/log/infoberry/client.log
