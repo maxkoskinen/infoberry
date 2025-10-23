@@ -30,7 +30,7 @@ class Player:
 
     async def run(self):
         await self._display.launch()
-        await self._display.ensure_pages([c.to_url() for c in self._bank.items()])
+        await self._display.ensure_pages([c.render_url() for c in self._bank.items()])
         self._tasks["rotate"] = asyncio.create_task(self._rotate_loop(), name="rotate")
         self._tasks["cfgwatch"] = asyncio.create_task(
             self._config_watch_loop(), name="cfgwatch"
@@ -114,7 +114,7 @@ class Player:
             self._cfg = new_cfg
             diff = self._bank.diff(new_cfg.contents)
             self._bank.set_items(new_cfg.contents)
-            urls = [c.to_url() for c in self._bank.items()]
+            urls = [c.render_url() for c in self._bank.items()]
             if disp_changed:
                 await self._display.close()
                 await self._display.launch()

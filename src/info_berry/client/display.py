@@ -50,7 +50,11 @@ class Display:
         if is_linux:
             launch_args += ["--kiosk"]
         elif is_macos:
-            launch_args += ["--start-fullscreen"]  # "--kiosk" is flaky on macOS
+            launch_args += [
+                "--start-maximized",
+                "--disable-session-crashed-bubble",
+                "--disable-features=TranslateUI",
+            ]
 
         self._browser = await self._playwright.chromium.launch(
             headless=False,
@@ -62,7 +66,8 @@ class Display:
             ],
         )
         self._context = await self._browser.new_context(
-            viewport={"width": self.width, "height": self.height}
+            viewport=None,
+            no_viewport=True,
         )
 
     async def ensure_pages(self, urls: List[str]):
