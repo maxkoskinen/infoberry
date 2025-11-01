@@ -13,9 +13,9 @@ logger = logging.getLogger(__name__)
 
 class Player:
     def __init__(self, config_file: str):
-        self.config_file = config_file
+        self.config_file: str = config_file
         self._cfg: AppConfig = load_config(config_file)
-        self._bank = ContentBank(self._cfg.contents)
+        self._bank: ContentBank = ContentBank(self._cfg.contents)
         self._display = Display(
             screen=self._cfg.display.screen,
             width=self._cfg.display.width,
@@ -23,10 +23,10 @@ class Player:
             rotation=self._cfg.display.rotation,
         )
         self._tasks: dict[str, asyncio.Task] = {}
-        self._shutdown = asyncio.Event()
-        self._lock = asyncio.Lock()
+        self._shutdown: asyncio.Event = asyncio.Event()
+        self._lock: asyncio.Lock = asyncio.Lock()
         path = Path(config_file)
-        self._last_mtime = path.stat().st_mtime if path.exists() else None
+        self._last_mtime: float | None = path.stat().st_mtime if path.exists() else None
 
     async def run(self):
         await self._display.launch()

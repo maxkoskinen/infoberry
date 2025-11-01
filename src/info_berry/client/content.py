@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import html
 import tempfile
 import uuid
@@ -155,9 +156,9 @@ class VideoContent(Content):
             ).render_url()
 
         vid_uri = path.as_uri()
-        body = f"""<video src="{html.escape(vid_uri)}" 
-                          autoplay muted loop playsinline 
-                          controlslist="nodownload noplaybackrate" 
+        body = f"""<video src="{html.escape(vid_uri)}"
+                          autoplay muted loop playsinline
+                          controlslist="nodownload noplaybackrate"
                           disablepictureinpicture></video>"""
         html_doc = self._generate_html_wrapper(
             body_html=body,
